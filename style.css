@@ -1,10 +1,15 @@
+.bodyBackground{
+    background-image: url(./images/backgroundImage.jpg);
+    size: 0vmin
+}
+
 .cardBack {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 130px;
-    background-image: url(./atras.png);
+    width: 230px;
+    height: 230px;
+    background-image: url(./images/backCard.jpg);
 }
 
 .front_card1 {
@@ -40,70 +45,70 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 130px;
-    background-image: url(./img1.jpg);
+    width: 200px;
+    height: 200px;
+    background-image: url(./images/img1.jpg);
 }
 
 .img2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 130px;
-    background-image: url(./img2.jpg);
+    width: 200px;
+    height: 200px;
+    background-image: url(./images/img2.jpg);
 }
 
 .img3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 130px;
-    background-image: url(./img3.jpg);
+    width: 200px;
+    height: 200px;
+    background-image: url(./images/img3.jpg);
 }
 
 .img4 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 130px;
-    background-image: url(./img4.jpg);
+    width: 200px;
+    height: 200px;
+    background-image: url(./images/img4.jpg);
 }
 
 .img5 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 130px;
-    background-image: url(./img5.jpg);
+    width: 200px;
+    height: 200px;
+    background-image: url(./images/img5.jpg);
 }
 
 .img6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 130px;
-    background-image: url(./img6.jpg);
+    width: 200px;
+    height: 200px;
+    background-image: url(./images/img6.jpg);
 }
 
 .img7 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 130px;
-    background-image: url(./img7.jpg);
+    width: 200px;
+    height: 200px;
+    background-image: url(./images/img7.jpg);
 }
 
 .img8 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 130px;
-    background-image: url(./img8.jpg);
+    width: 200px;
+    height: 200px;
+    background-image: url(./images/img8.jpg);
 }
