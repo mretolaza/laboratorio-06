@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <title>Memoria - Laboratorio 6 </title>
+
+</head>
+
+<body class="bodyBackground">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      class Counter extends React.Component{
+        constructor (props){
+          super(props)
+          this.state = {
+          
+          }
+        }
+
+        render(){
+          const boxMemory  = {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100px",
+            height: "100px",
+            color: "orange",
+            fontFamily: "arial",
+            textShadow: "2px 2px 2px #000000",
+            fontSize: "50px"
+          }
+
+          return (
+            <div style={boxMemory}>
+              {this.props.count}
+            </div>
+          )                   
+        }
+      }
+
+      class CardOfMemory extends React.Component{
+        constructor (props){
+          super(props)
+          this.state = {
+            flipTheCard: false
+          }
+        }
+        
+        handleCardClick() {
+          this.props.handleCardOfChange(this.props.id, this.props.posIdOfCard)
+        }
+
+        render(){
+          const styleOfMemory  = {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "black"
+
+          }
+          
+          if(this.props.flipingTheCard)
+          {
+            var cardFront = "front_card1"
+            var cardBack = "back_card1"
+            var firstFaceOfCard = this.props.cardImage
+          }
+          else
+          {
+            var cardFront = "front_card2"
+            var cardBack = "back_card2"
+            var card2 = "cardBack"
+          }
+
+          return (
+              <div style={styleOfMemory} onClick={this.handleCardClick.bind(this)}>
+                <div className ={cardFront}>
+                  <div className={this.props.cardImage}></div>
+                </div>
+                <div className ={cardBack}>
+                  <div className="cardBack"></div>
+                </div>
+              </div>
+          )                   
+        }
+      }
+
+      class MemoryGameStart extends React.Component {
+        constructor(props) {
+          super(props)
+
+          this.state = {
+            randomArray: [],
+            arrayOfCardInit: [],
+            arrayOfImageMemory: [],
+            arrayChooseCards: [],
+            arryaSavePosCh: [],
+            arraySuccessCards: [],
+            arryaFlipCard: [],
+            bandera: null,
+            countCardStt: 0
+          }
+          this.getRandomCardsPos()
+        }
+
+        getRandomCardsPos()
+        {
+          this.state.arrayOfCardInit = [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          this.state.arrayOfImageMemory = [
+              "img1",
+              "img2",
+              "img3",
+              "img4",
+              "img5",
+              "img6",
+              "img7",
+              "img8"
+            ]
+
+          let arregloAlea = []
+          let arregloVolteo = []
+
+          while(this.state.arrayOfCardInit.length>0)
+          {
+            var arreglo = 
+                this.state.arrayOfCardInit.splice(Math.floor(Math.random() * this.state.arrayOfCardInit.length), 1)
+            arreglo = arreglo[0]
+            arregloAlea.push(arreglo)
+          }
+          this.state.randomArray = [...arregloAlea]
+          for(let i = 0; i<16; i++)
+          {
+            arregloVolteo.push(false)
+          }
+          this.state.arryaFlipCard = [...arregloVolteo]
+
+        }
+
+        handleCardClick(id, posicion){
+          if(this.state.arrayChooseCards.length < 2 && posicion != this.state.bandera && !this.state.arraySuccessCards.includes(id))
+          {
+            var v = this.state.arryaFlipCard
+            var posicionesEle = this.state.arryaSavePosCh
+
+            v[posicion] = true
+            
+            this.setState({
+              arryaFlipCard: v,
+              bandera: posicion
+            })
+
+            var choosed = this.state.arrayChooseCards
+            choosed.push(id)
+            posicionesEle.push(posicion)
+
+            this.setState({
+              arrayChooseCards: choosed,
+              arryaSavePosCh: posicionesEle
+            })            
+            if(choosed.length != 2)
+            {
+
+            }
+            else
+            {
+              this.setState({
+                countCardStt: this.state.countCardStt + 1
+              })
+              if(choosed[0] == choosed[1] && choosed[0] != null && choosed[1] != null)
+              {
+                var good = this.state.arraySuccessCards
+                good.push(id)
+                this.setState({
+                  arraySuccessCards: good
+                })
+                this.setState({
+                    arrayChooseCards: [],
+                    arryaSavePosCh: [],
+                    bandera: null
+                })              
+                setTimeout(() => {
+                  if (good.length == 8){
+                  alert("Felicidades Juego Completado - Has Ganado")
+                  }else{
+
+                  }
+                },100)
+              }else
+              {
+                setTimeout(() => {
+                  v = this.state.arryaFlipCard
+
+                  v[this.state.arryaSavePosCh[0]] = false
+                  v[this.state.arryaSavePosCh[1]] = false
+                  this.setState({
+                    arryaFlipCard: v,
+                    arrayChooseCards: [],
+                    arryaSavePosCh: [],
+                    bandera: null
+                  })
+                },800)  
+              }
+            }
+          }else
+          {
+          }
+        }
+
+        //Aqui se hace el grid del juego
+        render()
+        {
+          const grid = {
+            display: "grid",
+            gridTemplateColumns: "100px 100px 100px 100px",
+            gridTemplateRows: "150px 150px 150px 150px",  
+            gridColumnGap: "10px",
+            gridRowGap: "10px",
+          }
+
+          const flex = {
+            display: "flex",
+            justifyContent: "center"
+          }
+
+          const moveMessage = {
+            display: "flex",
+            justifyContent: "center",            
+            width: "700px",
+            height: "20px",
+            fontWeight: "bold",
+            textShadow: "2px 2px 2px #000000",
+            color: "orange",
+            fontFamily: "arial",
+            fontSize: "25px"
+          }         
+          //Se verifica que todos los numeros hayan sido sacados del arreglo fijo, y que se pasen revueltos los numeros al mezclado
+
+          //Se muestra en pantalla el HTML de las cartas
+          return (
+            <div>
+              <div style={flex}>
+                  <div style={moveMessage}>People That Change the World - Memory MemoryGameStart</div>
+              </div>
+              <div style={flex}>
+                  <div style={moveMessage}></div>
+              </div>
+              <div style={flex}>
+                <div style={grid}>
+                <CardOfMemory 
+                    id = {this.state.randomArray[0]}  
+                    posIdOfCard = '0'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[0]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[0]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[1]}  
+                    posIdOfCard = '1'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[1]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[1]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[2]}  
+                    posIdOfCard = '2'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[2]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[2]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[3]}  
+                    posIdOfCard = '3'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[3]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[3]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[4]}  
+                    posIdOfCard = '4'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[4]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[4]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[5]}  
+                    posIdOfCard = '5'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[5]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[5]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[6]}  
+                    posIdOfCard = '6'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[6]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[6]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[7]}  
+                    posIdOfCard = '7'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[7]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[7]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[8]}  
+                    posIdOfCard = '8'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[8]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[8]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[9]}  
+                    posIdOfCard = '9'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[9]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[9]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[10]}  
+                    posIdOfCard = '10'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[10]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[10]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[11]}  
+                    posIdOfCard = '11'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[11]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[11]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[12]}  
+                    posIdOfCard = '12'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[12]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[12]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[13]}  
+                    posIdOfCard = '13'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[13]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[13]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[14]}  
+                    posIdOfCard = '14'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[14]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[14]} 
+                />
+                <CardOfMemory 
+                    id = {this.state.randomArray[15]}  
+                    posIdOfCard = '15'
+                    cardImage = {this.state.arrayOfImageMemory[this.state.randomArray[15]]} 
+                    handleCardOfChange ={this.handleCardClick.bind(this)} 
+                    flipingTheCard={this.state.arryaFlipCard[15]} 
+                />
+                </div>
+              </div>
+
+              <div style={flex}>
+                <div style={moveMessage}>Movimientos realizados: </div>
+              </div>
+
+              <div style={flex}>
+                <Counter count = {this.state.countCardStt} />
+              </div>
+              
+            </div>
+          )
+        }   
+      }
+
+    ReactDOM.render(<MemoryGameStart />, document.getElementById('root'))
+    </script>
+</body>
+
+</html>

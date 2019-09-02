@@ -1,0 +1,109 @@
+.cardBack {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./atras.png);
+}
+
+.front_card1 {
+    cursor: pointer;
+    position: absolute;
+    transform: rotateY(0deg);
+    transition: 0.4s
+}
+
+.back_card1 {
+    backface-visibility: hidden;
+    position: absolute;
+    transform: rotateY(180deg);
+    transition: 0.4s
+}
+
+.front_card2 {
+    backface-visibility: hidden;
+    cursor: pointer;
+    position: absolute;
+    transform: rotateY(180deg);
+    transition: 0.4s
+}
+
+.back_card2 {
+    backface-visibility: hidden;
+    position: absolute;
+    transform: rotateY(0deg);
+    transition: 0.4s
+}
+
+.img1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./img1.jpg);
+}
+
+.img2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./img2.jpg);
+}
+
+.img3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./img3.jpg);
+}
+
+.img4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./img4.jpg);
+}
+
+.img5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./img5.jpg);
+}
+
+.img6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./img6.jpg);
+}
+
+.img7 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./img7.jpg);
+}
+
+.img8 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 130px;
+    background-image: url(./img8.jpg);
+}
