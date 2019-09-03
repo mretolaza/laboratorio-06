@@ -3,20 +3,20 @@
 
 <head>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-    <title>Memoria-Lab 6 </title>
+  <title>Memoria-Lab 6 </title>
 
 </head>
 
 <body class="bodyBackground">
-    <div id="root"></div>
+  <div id="root"></div>
 
-    <script type="text/babel">
-      class Counter extends React.Component{
+  <script type="text/babel">
+    class Counter extends React.Component{
         constructor (props){
           super(props)
           this.state = {
@@ -65,9 +65,9 @@
           
           if(this.props.flipingTheCard)
           {
-            var cardFront = "front_card1"
-            var cardBack = "back_card1"
-            var firstFaceOfCard = this.props.cardImage
+            let cardFront = "front_card1"
+            let cardBack = "back_card1"
+            let firstFaceOfCard = this.props.cardImage
           }
           else
           {
@@ -82,7 +82,7 @@
                   <div className={this.props.cardImage}></div>
                 </div>
                 <div className ={cardBack}>
-                  <div className="cardBack"></div>
+                  <div className={card2}></div>
                 </div>
               </div>
           )                   
@@ -101,7 +101,7 @@
             arryaSavePosCh: [],
             arraySuccessCards: [],
             arryaFlipCard: [],
-            bandera: null,
+            flag: null,
             countCardStt: 0
           }
           this.getRandomCardsPos()
@@ -157,28 +157,28 @@
 
         }
 
-        handleCardClick(id, posicion){
-          if(this.state.arrayChooseCards.length < 2 && posicion != this.state.bandera && !this.state.arraySuccessCards.includes(id))
+        handleCardClick(id, position){
+          if(this.state.arrayChooseCards.length < 2 && position != this.state.flag && !this.state.arraySuccessCards.includes(id))
           {
-            var v = this.state.arryaFlipCard
+            var variableGoodGame = this.state.arryaFlipCard
             var posicionesEle = this.state.arryaSavePosCh
 
-            v[posicion] = true
+            variableGoodGame[position] = true
             
             this.setState({
-              arryaFlipCard: v,
-              bandera: posicion
+              arryaFlipCard: variableGoodGame,
+              flag: position
             })
 
-            var choosed = this.state.arrayChooseCards
-            choosed.push(id)
-            posicionesEle.push(posicion)
+            var choosedCard = this.state.arrayChooseCards
+            choosedCard.push(id)
+            posicionesEle.push(position)
 
             this.setState({
-              arrayChooseCards: choosed,
+              arrayChooseCards: choosedCard,
               arryaSavePosCh: posicionesEle
             })            
-            if(choosed.length != 2)
+            if(choosedCard.length != 2)
             {
 
             }
@@ -187,50 +187,49 @@
               this.setState({
                 countCardStt: this.state.countCardStt + 1
               })
-              if(choosed[0] == choosed[1] && choosed[0] != null && choosed[1] != null)
+              if(choosedCard[0] == choosedCard[1] && choosedCard[0] != null && choosedCard[1] != null)
               {
-                var good = this.state.arraySuccessCards
-                good.push(id)
+                var goodGame = this.state.arraySuccessCards
+                goodGame.push(id)
                 this.setState({
-                  arraySuccessCards: good
+                  arraySuccessCards: goodGame
                 })
                 this.setState({
                     arrayChooseCards: [],
                     arryaSavePosCh: [],
-                    bandera: null
+                    flag: null
                 })              
                 setTimeout(() => {
-                  if (good.length == 8){
-                  alert("Felicidades Juego Completado - Has Ganado")
-                  }else{
-
+                  if (goodGame.length == 8){
+                  alert("GANO EL JUEGO")
                   }
+                  else
+                  {}
                 },100)
-              }else
+              }
+              else
               {
                 setTimeout(() => {
-                  v = this.state.arryaFlipCard
+                  variableGoodGame = this.state.arryaFlipCard
 
-                  v[this.state.arryaSavePosCh[0]] = false
-                  v[this.state.arryaSavePosCh[1]] = false
+                  variableGoodGame[this.state.arryaSavePosCh[0]] = false
+                  variableGoodGame[this.state.arryaSavePosCh[1]] = false
                   this.setState({
-                    arryaFlipCard: v,
+                    arryaFlipCard: variableGoodGame,
                     arrayChooseCards: [],
                     arryaSavePosCh: [],
-                    bandera: null
+                    flag: null
                   })
                 },800)  
               }
             }
-          }else
-          {
           }
+          else
+          { }
         }
-
-        //Aqui se hace el grid del juego
         render()
-        {
-          const grid = {
+        {  
+          const gridStyle = {
             display: "grid",
             gridTemplateColumns: "250px 250px 250px 250px",
             gridTemplateRows: "250px 250px 250px 250px",  
@@ -238,12 +237,13 @@
             gridRowGap: "10px",
           }
 
-          const flex = {
+          const flexAplicationStyle = {
             display: "flex",
             justifyContent: "center"
           }
 
-          const moveMessage = {
+
+          const textMessageStyle = {
             display: "flex",          
             width: "1015px",
             height: "20px",
@@ -252,21 +252,17 @@
             fontFamily: "Roboto",
             fontSize: "25px"
           }         
-          //Se verifica que todos los numeros hayan sido sacados del arreglo fijo, y que se pasen revueltos los numeros al mezclado
-
-          //Se muestra en pantalla el HTML de las cartas
+      
           return (
-            <div class="row">
-
-              <div style={flex}>
-                  <div style={moveMessage}>Stich Memory</div>
+            <div className="row">
+              <div style={flexAplicationStyle}>
+                  <div style={textMessageStyle}>Stich Memory</div>
               </div>
-
-              <div style={flex}>
-                  <div style={moveMessage}></div>
+              <div style={flexAplicationStyle}>
+                  <div style={textMessageStyle}></div>
               </div>
-              <div style={flex}>
-                <div style={grid}>
+              <div style={flexAplicationStyle}>
+                <div style={gridStyle}>
                 <CardOfMemory 
                     id = {this.state.randomArray[0]}  
                     posIdOfCard = '0'
@@ -381,15 +377,12 @@
                 />
                 </div>
               </div>
-
-              <div style={flex}>
-                <div style={moveMessage}>Movimientos realizados: </div>
+              <div style={flexAplicationStyle}>
+                <div style={textMessageStyle}>Movimientos realizados por jugador: </div>
               </div>
-
-              <div style={flex}>
+              <div style={flexAplicationStyle}>
                 <Counter count = {this.state.countCardStt} />
-              </div>
-              
+              </div>  
             </div>
           )
         }   
