@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-    <title>Memoria - Laboratorio 6 </title>
+    <title>Memoria-Lab 6 </title>
 
 </head>
 
@@ -27,13 +27,10 @@
         render(){
           const boxMemory  = {
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
-            width: "200px",
-            height: "200px",
-            color: "orange",
+            width: "1000px",
+            color: "white",
             fontFamily: "Roboto",
-            textShadow: "2px 2px 2px #000000",
             fontSize: "50px"
           }
 
@@ -247,24 +244,24 @@
           }
 
           const moveMessage = {
-            display: "flex",
-            justifyContent: "center",            
-            width: "700px",
+            display: "flex",          
+            width: "1015px",
             height: "20px",
             fontWeight: "bold",
-            textShadow: "2px 2px 2px #000000",
-            color: "orange",
-            fontFamily: "arial",
+            color: "white",
+            fontFamily: "Roboto",
             fontSize: "25px"
           }         
           //Se verifica que todos los numeros hayan sido sacados del arreglo fijo, y que se pasen revueltos los numeros al mezclado
 
           //Se muestra en pantalla el HTML de las cartas
           return (
-            <div>
+            <div class="row">
+
               <div style={flex}>
                   <div style={moveMessage}>Stich Memory</div>
               </div>
+
               <div style={flex}>
                   <div style={moveMessage}></div>
               </div>
